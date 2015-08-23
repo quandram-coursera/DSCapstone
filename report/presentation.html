@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word prediction app</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Word prediction app">
+  <meta name="author" content="James Longman">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Word prediction app</h1>
+    <h2>The new prediction algorithm for text input.</h2>
+    <p>James Longman<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <h2 style="color:#000000;">Word prediction app</h2>
+
+<p style="display:block; margin:10px 0px 10px 0px;">This app is designed to be very simple to use offering the user a clean interface, simple text input box and, as shown below, textual and graphical representations of the next predicted word based upon their entry.</p>
+
+<p><img src="Capture.PNG" alt="title"></p>
+
+<p style="display:block; margin:10px 0px 10px 0px;">There is also a language selection box to allow alternate prediction languages to be selected.  Using this will result in a small delay whilst the new language data is loaded to support the prediction functions.</p>
+
+<p>--- .class #id bg:#ccccff</p>
+
+<h2 style="color:#000000;">Data cleaning</h2>
+
+<p style="display:block; margin:10px 0px 10px 0px;">With language evolving so quickly you need a new approach to achieve the best prossible predictions. </p> 
+
+<p style="display:block; margin:10px 0px 10px 0px;">This app makes use of custom regular expressions in addition to standard natural language processing functions to try and sanitise the user input taking in to account some variations of emoiticons and "text speak".</p>  
+
+<p style="display:block; margin:10px 0px 10px 0px;">Numbers and profanity (as defined by the <href="https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words">Shutterstock list</a>) are replaced by generic tokens so as not to skew the proability calcualtions.  </p>
+
+<p style="display:block; margin:10px 0px 10px 0px;">These tokens will never be presented as predictions to the user.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    <h2 style="color:#000000;">n-Gram construction and probabilities</h2>
+
+<p style="display:block; margin:10px 0px 10px 0px;">This app has data tables of the most popular 1 to 6-grams.</p>
+
+<p style="display:block; margin:10px 0px 10px 0px;">Each of the 2 through 6-gram tables stores the probability of the last (n) word occuring given the preceding (n-1) words.</p>
+
+<p style="display:block; margin:10px 0px 10px 0px;">For the 1-grams diversity of preceding words (as witnessed by the 2-gram table) is used rather than overall frequency of word.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:#ccccff;">
+  <article data-timings="">
+    <h2 style="color:#000000;">Prediction algorithm</h2>
+
+<p style="display:block; margin:10px 0px 10px 0px;">To construct the predictions two things are done:-</p>
+
+<ol>
+<li>User input is put through the same cleaning routines that the original data corpus to build the model was.</li>
+<li>Starting with the highest available n-Gram table, as dictated by the size of the input string post cleaning, the n-Gram tables are cycled through calculating the probability of the next word.</li>
+</ol>
+
+<p style="display:block; margin:10px 0px 10px 0px;">This calculation uses simple back-off techniques</p>
+
+<p><span style="display:block; font-size=20px;">\[total probability = a + b*0.4^1 + c*0.4^2 + d*0.4^3\]</span></p>
+
+<p style="display:block; margin:10px 0px 10px 0px;">e.g.</p>
+
+<p style="display:block; margin:10px 0px 10px 0px;">a = probability of x in n grams</p>
+
+<p style="display:block; margin:10px 0px 10px 0px;">b = probability of x in n-1 grams</p>
+
+<p style="display:block; margin:10px 0px 10px 0px;">c = probability of x in n-2 grams</p>
+
+<p style="display:block; margin:10px 0px 10px 0px;">d = probability of x in n-3 grams</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='NA'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='NA'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='NA'>
+         3
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
